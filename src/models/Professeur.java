@@ -1,22 +1,20 @@
 package models;
 
-import java.util.Arrays;
-
 public class Professeur {
     private String nom;
     private String prenom;
     private ModuleInfo[] modulesEnseignes;
 
-    public Professeur(String nom, String prenom) {
+    public Professeur(String prenom, String nom) {
         this.nom = nom;
         this.prenom = prenom;
         modulesEnseignes = new ModuleInfo[0];
     }
 
-    public boolean enseigneCemodule(String nomDuModule) {
+    public boolean enseigneCeModule(String nomDuModule) {
         boolean resultat = false;
         for (int i = 0; i < modulesEnseignes.length; i++) {
-            if (modulesEnseignes[i] == nomDuModule) {
+            if (modulesEnseignes[i].getNom().equals(nomDuModule)) {
                 resultat = true;
                 break;
             }
@@ -26,7 +24,13 @@ public class Professeur {
 
     public void ajouterModuleEnseigne(ModuleInfo module) {
         if (module != null) {
-            modulesEnseignes = new ModuleInfo[modulesEnseignes.length + 1];
+            ModuleInfo[] newlist = new ModuleInfo[modulesEnseignes.length + 1];
+            for (int i = 0; i < modulesEnseignes.length; i++) {
+                newlist[i] = modulesEnseignes[i];
+            }
+            newlist[modulesEnseignes.length] = module;
+            modulesEnseignes = newlist;
+
         }
 
     }
